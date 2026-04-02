@@ -1,0 +1,37 @@
+# Tennis Vision — Central Configuration
+
+models:
+  # YOLOv8 model size: n=nano, s=small, m=medium (nano is fastest)
+  yolo_size: "n"
+  ball_model_path: "models/ball_detector.pt"      # fine-tuned for tennis ball
+  player_model_path: "models/player_detector.pt"  # general person detection
+  court_model_path: "models/court_detector.pt"    # court keypoint model
+
+detection:
+  ball_conf_threshold: 0.35     # confidence to accept a ball detection
+  player_conf_threshold: 0.5
+  court_conf_threshold: 0.6
+  ball_class_id: 0              # class index in your YOLO model
+
+tracking:
+  max_disappeared: 10           # frames before a track is dropped
+  max_distance: 80              # max pixel distance to associate detections
+  kalman_enabled: true          # smooth noisy ball detections with Kalman filter
+
+pose:
+  min_detection_confidence: 0.5
+  min_tracking_confidence: 0.5
+
+analytics:
+  # Real tennis court is 23.77m long x 8.23m wide (singles)
+  court_length_meters: 23.77
+  court_width_meters: 8.23
+  fps: 30                       # expected input video fps
+
+visualization:
+  ball_trail_length: 15         # how many past positions to draw as trail
+  show_pose: true
+  show_court_overlay: true
+  show_ball_trail: true
+  show_speed: true
+  output_fps: 30
