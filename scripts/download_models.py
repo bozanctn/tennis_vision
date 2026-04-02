@@ -40,9 +40,17 @@ def download_yolo_base():
 def verify_mediapipe():
     print("Verifying MediaPipe Pose...")
     import mediapipe as mp
-    mp_pose = mp.solutions.pose
+    import numpy as np
+
+    # mp.solutions may not be directly accessible on some versions —
+    # access it via the full module path as a fallback.
+    try:
+        mp_pose = mp.solutions.pose
+    except AttributeError:
+        import mediapipe.python.solutions.pose as mp_pose_mod
+        mp_pose = mp_pose_mod
+
     with mp_pose.Pose(static_image_mode=True) as pose:
-        import numpy as np
         dummy = np.zeros((100, 100, 3), dtype=np.uint8)
         pose.process(dummy)
     print("  MediaPipe Pose OK.")

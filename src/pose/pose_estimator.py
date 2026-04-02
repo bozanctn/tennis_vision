@@ -79,7 +79,11 @@ class PoseEstimator:
         min_detection_confidence: float = 0.5,
         min_tracking_confidence: float = 0.5,
     ):
-        self.mp_pose = mp.solutions.pose
+        try:
+            self.mp_pose = mp.solutions.pose
+        except AttributeError:
+            import mediapipe.python.solutions.pose as _mp_pose_mod
+            self.mp_pose = _mp_pose_mod
         self.pose = self.mp_pose.Pose(
             static_image_mode=False,          # treat input as video stream → faster
             model_complexity=1,               # 0=lite, 1=full, 2=heavy
