@@ -3,12 +3,13 @@
 models:
   # YOLOv8 model size: n=nano, s=small, m=medium (nano is fastest)
   yolo_size: "n"
-  ball_model_path: "models/ball_detector.pt"      # fine-tuned for tennis ball
+  ball_model_path: "models/ball_detector.pt"      # YOLOv8 fine-tuned for tennis ball
+  tracknet_model_path: "models/tracknet.pt"        # TrackNet (used if exists, preferred)
   player_model_path: "models/player_detector.pt"  # general person detection
   court_model_path: "models/court_detector.pt"    # court keypoint model
 
 detection:
-  ball_conf_threshold: 0.35     # confidence to accept a ball detection
+  ball_conf_threshold: 0.5      # TrackNet heatmap threshold (0.35 for YOLOv8)
   player_conf_threshold: 0.5
   court_conf_threshold: 0.6
   ball_class_id: 0              # class index in your YOLO model

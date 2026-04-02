@@ -90,7 +90,7 @@ class VideoPipeline:
         a = cfg["analytics"]
         v = cfg["visualization"]
 
-        ball_detector   = BallDetector(m["ball_model_path"],   conf_threshold=d["ball_conf_threshold"])
+        ball_detector   = BallDetector.from_config(cfg)
         court_detector  = CourtDetector(m.get("court_model_path"))
         player_detector = PlayerDetector(conf_threshold=d["player_conf_threshold"])
         tracker         = KalmanBallTracker(trail_length=v["ball_trail_length"])
